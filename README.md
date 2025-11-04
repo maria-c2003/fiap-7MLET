@@ -4,6 +4,8 @@ Este projeto contém um pequeno serviço em FastAPI que executa um scraping do s
 
 - Linguagem: Python 3.10+ (teste em Python 3.11)
 - Framework web: FastAPI
+- Link do video no youtube: https://youtu.be/c63iWU-syak
+- Link do deploy: https://fiap-7-mlet.vercel.app/docs
 
 
 ## Arquitetura
