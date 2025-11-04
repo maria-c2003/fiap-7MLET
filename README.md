@@ -11,7 +11,7 @@ Este projeto contém um pequeno serviço em FastAPI que executa um scraping do s
 - `app.py` — wrapper principal que configura o aplicativo FastAPI, inicia o scraper em background no evento `startup`.
 - `api/v1/` — roteadores da API (books, categories, health, stats).
 - `script/scrape.py` — lógica de scraping que extrai dados do site alvo.
-- `data/books.csv` — Arquivo CSV com dados coletados (se utilizado pelo script).
+- `/tmp/data/books.csv` — Arquivo CSV com dados coletados (somente gerado pelo script).
 
 O scraper é executado em uma thread daemon ao iniciar a aplicação e popula `app.state.books`. Os endpoints leem deste estado em memória para responder às requisições.
 

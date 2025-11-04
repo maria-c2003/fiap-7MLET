@@ -8,11 +8,11 @@ class Util:
     def get_books_from_csv(csv_path: Optional[str] = None) -> List[Dict]:
         """Lê um CSV de livros e retorna lista de dicionários com tipos convertidos.
 
-        Se `csv_path` não for informado, tenta `data/books.csv` no diretório do projeto.
+        Se `csv_path` não for informado, tenta `tmp/data/books.csv` no diretório do projeto.
         """
         if csv_path is None:
             project_root = os.path.dirname(__file__)
-            csv_path = os.path.join(project_root, "data", "books.csv")
+            csv_path = os.path.join(project_root, "tmp", "data", "books.csv")
 
         if not os.path.exists(csv_path):
             return []

@@ -5,7 +5,7 @@ ajustes futuros e centralizar valores.
 """
 
 # CSV de saída padrão
-DEFAULT_SAVE_PATH = "data/books.csv"
+DEFAULT_SAVE_PATH = "/tmp/data/books.csv"
 
 # Scraper defaults
 DEFAULT_START_PAGE = 1
