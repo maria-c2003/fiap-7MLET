@@ -1,5 +1,4 @@
-from ast import List
-from typing import Dict
+from typing import List, Dict
 
 from fastapi import APIRouter
 

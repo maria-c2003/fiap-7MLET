@@ -1,4 +1,4 @@
-from ast import List
+from typing import List
 from fastapi import APIRouter
 
 from api.v1.books import Book
