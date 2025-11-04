@@ -28,10 +28,10 @@ def _create_session_with_retries() -> requests.Session:
     session.mount("https://", adapter)
     return session
 
+def scrape_books(start_page: int = None) -> List[Dict]:
 
-def scrape_books() -> List[Dict]:
-
-    start_page = config.DEFAULT_START_PAGE
+    if start_page is None:
+        start_page = config.DEFAULT_START_PAGE
     timeout = config.DEFAULT_TIMEOUT
     verify_ssl = config.DEFAULT_VERIFY_SSL
     save_to = config.DEFAULT_SAVE_PATH
@@ -107,6 +107,7 @@ def scrape_books() -> List[Dict]:
                         b["categoria"] = ""
 
         return books_on_page
+
 
     page_nums = list(range(start_page, start_page + config.DEFAULT_MAX_PAGES))
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as page_executor:
