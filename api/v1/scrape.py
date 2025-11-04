@@ -6,8 +6,8 @@ from script.scrape import scrape_books
 
 router = APIRouter(prefix="/api/v1/scrape", tags=["scrape"])        
 
-@router.get("/" , response_model=List[Book])
+@router.get("" , response_model=List[Book])
 def scrape():
-    """Triga o processo de scraping
+    """Trigger para o processo de scraping
     """
     return scrape_books()

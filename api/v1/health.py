@@ -6,7 +6,7 @@ from util import Util
 router = APIRouter(prefix="/api/v1/health", tags=["health"])
 
 
-@router.get("/")
+@router.get("")
 def health():
     """Retorna status simples da aplicação e número de livros carregados."""
     books = Util.get_books_from_csv()
