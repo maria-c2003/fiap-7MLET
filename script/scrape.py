@@ -13,6 +13,8 @@ import concurrent.futures
 import config
 
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
 def _create_session_with_retries() -> requests.Session:
     session = requests.Session()
     retry = Retry(
