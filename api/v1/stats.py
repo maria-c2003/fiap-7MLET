@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, List
 from fastapi import APIRouter, Request
 
 router = APIRouter(prefix="/api/v1/stats", tags=["stats"])

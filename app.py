@@ -2,8 +2,6 @@ from fastapi import FastAPI
 import threading
 import logging
 from script.scrape import scrape_books, detect_total_pages
-import time
-import json
 
  
 from api.v1.books import router as books_router
