@@ -167,3 +167,46 @@ curl -s https://fiap-7-mlet.vercel.app/api/v1/scrape
 ## Observações operacionais
 
 - Há também um endpoint que dispara o scraping de forma síncrona (usa `script/scrape.py` e retorna os livros): **GET /api/v1/scrape/**. Atenção: este endpoint executa o processo de scraping dentro da mesma requisição e pode demorar o tempo necessário para coletar todas as páginas — em plataformas serverless (ex.: Vercel) isso pode exceder timeouts.
+
+## Fluxograma
+
+```mermaid
+flowchart LR
+  U[Cliente]
+  subgraph API [API FastAPI]
+    G[Aplicacao FastAPI]
+  end
+  subgraph Ingestao [Ingestao de Dados]
+    S[Scraper<br/>script-scrape.py] --> T[Transformacao basica] --> E[CSV<br/>data-books.csv]
+  end
+
+  U -->|GET /api/v1/scrape| G
+  G -->|dispara scraping| S
+
+  U -->|GET /api/v1/books| G
+  U -->|GET /api/v1/books por id| G
+  U -->|GET /api/v1/books search| G
+  U -->|GET /api/v1/categories| G
+
+  E --> G
+
+```
+
+## Diagrama de Sequência
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant Client as Cliente
+  participant API as FastAPI
+  participant Scr as scrape.py
+  participant CSV as data-books.csv
+
+  Client->>API: GET /api/v1/scrape
+  API->>Scr: Dispara scraping (interno)
+  Scr->>CSV: Salva livros no CSV
+  Client->>API: GET /api/v1/books | /books por id | /books search | /categories
+  API->>CSV: Le dados do CSV
+  API-->>Client: JSON
+
+```
