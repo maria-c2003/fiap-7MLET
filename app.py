@@ -1,13 +1,10 @@
 from fastapi import FastAPI
-import threading
-import logging
-from script.scrape import scrape_books
-
  
 from api.v1.books import router as books_router
 from api.v1.categories import router as categories_router
 from api.v1.health import router as health_router
 from api.v1.stats import router as stats_router
+from api.v1.scrape import router as scrape_router
 
 class Main:
     """Simple application wrapper that runs the scraper at startup
@@ -29,21 +26,8 @@ class Main:
         self.app.include_router(categories_router)
         self.app.include_router(health_router)
         self.app.include_router(stats_router)
-
-        @self.app.on_event("startup")
-        def _startup():
-            logging.getLogger().info("Aplicação iniciada - iniciando scraping em background")
-            t = threading.Thread(target=self._run_scrape, daemon=True)
-            t.start()
-
-    def _run_scrape(self) -> None:
-        try:
-            books = scrape_books()
-            self.app.state.books = books
-            logging.getLogger().info("Scraping finalizado no background: %d livros carregados.", len(books))
-        except Exception as e:
-            logging.getLogger().exception("Erro ao rodar scraper no background: %s", e)
-
+        self.app.include_router(scrape_router)
+        
     def run(self, host: str = "0.0.0.0", port: int = 8000) -> None:
         import uvicorn
 
