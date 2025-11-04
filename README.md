@@ -47,7 +47,7 @@ python app.py
 Ou usando `uvicorn` diretamente (útil para desenvolvimento):
 
 ```bash
-uvicorn app:Main().app --host 0.0.0.0 --port 8000 --reload
+uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 Ao iniciar, a aplicação dispara o scraping do site alvo em background; enquanto o scraping não terminar, o endpoint de health indica `scraping_in_progress: true`.
@@ -122,37 +122,48 @@ Exemplo de objeto `Book`:
 
 ## Exemplos de chamadas (curl)
 
+- Docs:
+
+```bash
+curl -s https://fiap-7-mlet.vercel.app/docs/
+```
+
 - Health:
 
 ```bash
-curl -s http://localhost:8000/api/v1/health/
+curl -s https://fiap-7-mlet.vercel.app/api/v1/health/
 ```
 
 - Listar livros (todos):
 
 ```bash
-curl -s http://localhost:8000/api/v1/books
+curl -s https://fiap-7-mlet.vercel.app/api/v1/books
 ```
 
 - Buscar por título e categoria:
 
 ```bash
-curl -s "http://localhost:8000/api/v1/books/search?title=attic&category=Poetry"
+curl -s "https://fiap-7-mlet.vercel.app/api/v1/books/search?title=attic&category=Poetry"
 ```
 
 - Top rated (top 5):
 
 ```bash
-curl -s "http://localhost:8000/api/v1/books/top-rated"
+curl -s "https://fiap-7-mlet.vercel.app/api/v1/books/top-rated"
 ```
 
 - Estatísticas overview:
 
 ```bash
-curl -s http://localhost:8000/api/v1/stats/overview
+curl -s https://fiap-7-mlet.vercel.app/api/v1/stats/overview
+```
+
+- Disparar scraping:
+
+```bash
+curl -s https://fiap-7-mlet.vercel.app/api/v1/scrape
 ```
 
 ## Observações operacionais
 
-- O scraping é feito em background ao iniciar a aplicação; dependendo da rede e do número de páginas, pode levar algum tempo até que `app.state.books` esteja populado.
-
+- Há também um endpoint que dispara o scraping de forma síncrona (usa `script/scrape.py` e retorna os livros): **GET /api/v1/scrape/**. Atenção: este endpoint executa o processo de scraping dentro da mesma requisição e pode demorar o tempo necessário para coletar todas as páginas — em plataformas serverless (ex.: Vercel) isso pode exceder timeouts.
