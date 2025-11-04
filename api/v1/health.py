@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter
 from datetime import datetime
 
 from util import Util
@@ -14,7 +14,7 @@ def health():
         "status": "ok",
         "time": datetime.utcnow().isoformat() + "Z",
         "book_count": len(books),
-        "scraping_in_progress": len(books) == 0,
+        "scraped": not len(books) == 0,
     }
 
 

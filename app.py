@@ -7,20 +7,19 @@ from api.v1.stats import router as stats_router
 from api.v1.scrape import router as scrape_router
 
 class Main:
-    """Simple application wrapper that runs the scraper at startup
-    and exposes a single endpoint `/` returning all scraped books.
+    """
+    Este projeto contém um pequeno serviço em FastAPI que executa um scraping do site "Books to Scrape" em background e expõe endpoints para consultar os livros coletados, categorias e métricas simples.
     """
 
     def __init__(self):
 
-        self.app = FastAPI()
-        self.app.state.books = []
-        self.app.state.metrics = {
-            "total_requests": 0,
-            "total_latency_ms": 0.0,
-            "per_path": {},
-            "errors": 0,
-        }
+        self.app = FastAPI(
+            title="Books Scraper API",
+            description=(
+                "Este projeto contém um pequeno serviço em FastAPI que executa um scraping do site Books to Scrape em background e expõe endpoints para consultar os livros coletados, categorias e métricas simples."
+            ),
+            version="0.1.0",
+        )
 
         self.app.include_router(books_router)
         self.app.include_router(categories_router)

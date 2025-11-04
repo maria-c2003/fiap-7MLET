@@ -116,10 +116,6 @@ Exemplo de objeto `Book`:
 - **GET /api/v1/stats/categories**
   - Descrição: Estatísticas por categoria: `count`, `average_price`, `min_price`, `max_price`, `average_rating`.
 
-- **GET /api/v1/stats/runtime**
-  - Descrição: Métricas coletadas pela middleware: `total_requests`, `total_latency_ms`, `average_latency_ms`, `per_path`, `errors`.
-
-
 ## Exemplos de chamadas (curl)
 
 - Docs:

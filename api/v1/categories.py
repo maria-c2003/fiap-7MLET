@@ -1,13 +1,14 @@
+from ast import List
 from typing import Dict
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter
 
 from util import Util
 
 router = APIRouter(prefix="/api/v1/categories", tags=["categories"])
 
 
-@router.get("/")
+@router.get("/", response_model=List[Dict[str, int]])
 def list_categories():
     """Retorna uma lista de categorias ordenada pela quantidade de livros (desc).
 

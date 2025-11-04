@@ -6,7 +6,7 @@ from util import Util
 router = APIRouter(prefix="/api/v1/stats", tags=["stats"])
 
 
-@router.get("/overview")
+@router.get("/overview", response_model=Dict[str, object])
 def overview_stats():
     """Estatísticas gerais da coleção: total, preço médio e distribuição de ratings."""
     books = Util.get_books_from_csv()
@@ -25,7 +25,7 @@ def overview_stats():
     }
 
 
-@router.get("/categories")
+@router.get("/categories", response_model=List[Dict[str, object]])
 def categories_stats():
     """Estatísticas por categoria: quantidade de livros, preços (avg/min/max) e média de ratings."""
     books = Util.get_books_from_csv()
@@ -60,23 +60,3 @@ def categories_stats():
             }
         )
     return result
-
-
-
-@router.get("/runtime")
-def runtime_stats(request: Request):
-    """Métricas de runtime simples: contadores de requisições e latências.
-
-    Retorna métricas coletadas pela middleware de logging.
-    """
-    metrics = getattr(request.app.state, "metrics", None) or {}
-    total = metrics.get("total_requests", 0)
-    total_latency = metrics.get("total_latency_ms", 0.0)
-    average_latency_ms = round(total_latency / total, 2) if total else None
-    return {
-        "total_requests": total,
-        "total_latency_ms": round(total_latency, 2),
-        "average_latency_ms": average_latency_ms,
-        "per_path": metrics.get("per_path", {}),
-        "errors": metrics.get("errors", 0),
-    }
