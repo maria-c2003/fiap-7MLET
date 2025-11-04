@@ -2,6 +2,7 @@ from typing import Dict
 
 from fastapi import APIRouter, Request
 
+from util import Util
 
 router = APIRouter(prefix="/api/v1/categories", tags=["categories"])
 
@@ -12,7 +13,7 @@ def list_categories(request: Request):
 
     Cada item é um dicionário com chaves: `categoria`, `count`.
     """
-    books = list(getattr(request.app.state, "books", []) or [])
+    books = Util.get_books_from_csv()
     counts: Dict[str, int] = {}
     for b in books:
         cat = (b.get("categoria") or "").strip()

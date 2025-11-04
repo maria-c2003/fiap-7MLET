@@ -1,13 +1,15 @@
 from typing import Dict, List
 from fastapi import APIRouter, Request
 
+from util import Util
+
 router = APIRouter(prefix="/api/v1/stats", tags=["stats"])
 
 
 @router.get("/overview")
 def overview_stats(request: Request):
     """Estatísticas gerais da coleção: total, preço médio e distribuição de ratings."""
-    books = list(getattr(request.app.state, "books", []) or [])
+    books = Util.get_books_from_csv()
     total_books = len(books)
     prices = [b.get("preco") for b in books if isinstance(b.get("preco"), (int, float))]
     average_price = round(sum(prices) / len(prices), 2) if prices else None
@@ -26,7 +28,7 @@ def overview_stats(request: Request):
 @router.get("/categories")
 def categories_stats(request: Request):
     """Estatísticas por categoria: quantidade de livros, preços (avg/min/max) e média de ratings."""
-    books = list(getattr(request.app.state, "books", []) or [])
+    books = Util.get_books_from_csv()
     categories: Dict[str, Dict[str, object]] = {}
     for b in books:
         cat = (b.get("categoria") or "Uncategorized")
