@@ -38,11 +38,7 @@ class Main:
 
     def _run_scrape(self) -> None:
         try:
-            total_pages = detect_total_pages()
-
-            logging.getLogger().info("Número de páginas detectado: %d", total_pages)
-
-            books = scrape_books(1, total_pages)
+            books = scrape_books()
             self.app.state.books = books
             logging.getLogger().info("Scraping finalizado no background: %d livros carregados.", len(books))
         except Exception as e:
