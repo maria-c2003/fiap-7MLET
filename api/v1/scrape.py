@@ -5,7 +5,7 @@ from script.scrape import scrape_books
 router = APIRouter(prefix="/api/v1/scrape", tags=["scrape"])        
 
 @router.get("/")
-def scrape(request: Request):
+def scrape():
     """Triga o processo de scraping
     """
     return scrape_books()

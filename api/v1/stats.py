@@ -7,7 +7,7 @@ router = APIRouter(prefix="/api/v1/stats", tags=["stats"])
 
 
 @router.get("/overview")
-def overview_stats(request: Request):
+def overview_stats():
     """Estatísticas gerais da coleção: total, preço médio e distribuição de ratings."""
     books = Util.get_books_from_csv()
     total_books = len(books)
@@ -26,7 +26,7 @@ def overview_stats(request: Request):
 
 
 @router.get("/categories")
-def categories_stats(request: Request):
+def categories_stats():
     """Estatísticas por categoria: quantidade de livros, preços (avg/min/max) e média de ratings."""
     books = Util.get_books_from_csv()
     categories: Dict[str, Dict[str, object]] = {}

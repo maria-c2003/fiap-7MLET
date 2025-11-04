@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, Request, HTTPException, Query
 from pydantic import BaseModel
+
 from util import Util
 
 
@@ -19,7 +20,7 @@ router = APIRouter(prefix="/api/v1/books", tags=["books"])
 
 
 @router.get("", response_model=List[Book])
-def list_books(request: Request):
+def list_books():
     """Retorna lista de livros já carregados na aplicação."""
     books = Util.get_books_from_csv()
     sb = ("rating").lower()
@@ -81,7 +82,7 @@ def search_books(request: Request, title: Optional[str] = None, category: Option
 
 
 @router.get("/top-rated", response_model=List[Book])
-def top_rated_books(request: Request):
+def top_rated_books():
     """Lista livros ordenados por rating (maior primeiro)."""
     books = Util.get_books_from_csv()
     def _rating_value(b: dict):

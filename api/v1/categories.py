@@ -8,7 +8,7 @@ router = APIRouter(prefix="/api/v1/categories", tags=["categories"])
 
 
 @router.get("/")
-def list_categories(request: Request):
+def list_categories():
     """Retorna uma lista de categorias ordenada pela quantidade de livros (desc).
 
     Cada item é um dicionário com chaves: `categoria`, `count`.

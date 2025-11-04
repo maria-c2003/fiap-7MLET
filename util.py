@@ -2,6 +2,7 @@ import csv
 import os
 from typing import List, Optional, Dict
 
+import config
 
 class Util:
     @staticmethod
@@ -11,8 +12,7 @@ class Util:
         Se `csv_path` não for informado, tenta `tmp/data/books.csv` no diretório do projeto.
         """
         if csv_path is None:
-            project_root = os.path.dirname(__file__)
-            csv_path = os.path.join(project_root, "tmp", "data", "books.csv")
+            csv_path = config.DEFAULT_SAVE_PATH
 
         if not os.path.exists(csv_path):
             return []
